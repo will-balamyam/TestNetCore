@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Sucursal</th>
+            <th scope="col">Direccion</th>            
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of listadoData">
+            <th scope="row">{{ data['id'] }}</th>
+            <td>{{ data['sucursal'] }}</td>
+            <td>{{ data['direccion'] }}</td>            
+        </tr>        
+    </tbody>
+</table>
