@@ -13,7 +13,7 @@ using TestDevTienda.Models;
 namespace TestDevTienda.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class CarritoController : Controller
     {
 
@@ -42,7 +42,7 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             ResponseEndpoint response = new ResponseEndpoint();
@@ -67,7 +67,8 @@ namespace TestDevTienda.Controllers
             response.code = StatusCodes.Status200OK;
             try
             {
-                response.data = await _carritoService.Create(carrito);
+                int carritoId = await _carritoService.Create(carrito);
+                response.data = await _carritoService.GetById(carritoId);
             }
             catch (Exception ex)
             {
@@ -78,14 +79,15 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpPut("id")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Carrito carrito)
         {
             ResponseEndpoint response = new ResponseEndpoint();
             response.code = StatusCodes.Status200OK;
             try
             {
-                response.data = await _carritoService.Update(id, carrito);
+                await _carritoService.Update(id, carrito);
+                response.data = await _carritoService.GetById(id);
             }
             catch (Exception ex)
             {
@@ -114,14 +116,15 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpDelete("items/(id)")]
-        public async Task<IActionResult> DeleteItems(int id)
+        [HttpDelete("items/{id}/{carritoId}")]
+        public async Task<IActionResult> DeleteItems(int id, int carritoId)
         {
             ResponseEndpoint response = new ResponseEndpoint();
             response.code = StatusCodes.Status200OK;
             try
             {
-                response.data = await _carritoService.DeleteItems(id);
+                await _carritoService.DeleteItems(id, carritoId);
+                response.data = _carritoService.GetById(carritoId);
             }
             catch (Exception ex)
             {

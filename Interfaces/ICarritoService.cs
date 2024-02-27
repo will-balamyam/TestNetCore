@@ -10,7 +10,7 @@ namespace TestDevTienda.Interfaces
         Task<int> Create(Carrito carrito);
         Task<int> Update(int id, Carrito carrito);
         Task<int> CreateItems(IEnumerable<CarritoItem> carritoItems);
-        Task<int> DeleteItems(int id);
+        Task<int> DeleteItems(int id, int carritoId);
     }
 }
 

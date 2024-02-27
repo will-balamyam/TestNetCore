@@ -10,11 +10,11 @@ namespace TestDevTienda.Data
 		{
 		}
 
-        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Cliente> clientes { get; set; }
 		public DbSet<Tienda> tiendas { get; set; }
-		public DbSet<Articulo> Articulos { get; set; }
-		public DbSet<Carrito> Carritos { get; set; }
-		public DbSet<CarritoItem> CarritoItems { get; set; }
+		public DbSet<Articulo> articulos { get; set; }
+		public DbSet<Carrito> carritos { get; set; }
+		public DbSet<CarritoItem> carrito_items { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,10 +28,10 @@ namespace TestDevTienda.Data
 				.WithMany(ar => ar.carritoItems)
 				.HasForeignKey(ci => ci.articuloId);
 
-			modelBuilder.Entity<CarritoItem>()
+			/*modelBuilder.Entity<CarritoItem>()
 				.HasOne(ci => ci.carrito)
 				.WithMany(ca => ca.carritoItems)
-				.HasForeignKey(ci => ci.carritoId);
+				.HasForeignKey(ci => ci.carritoId);*/
         }
     }
 }

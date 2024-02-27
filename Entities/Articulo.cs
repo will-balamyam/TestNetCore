@@ -7,7 +7,7 @@ namespace TestDevTienda.Entities
 {
     public class Articulo
 	{
-        public int id { get; set; }
+        public int? id { get; set; }
 		public string codigo { get; set; }
         public string descripcion { get; set; }
         public decimal precio { get; set; }
@@ -15,8 +15,8 @@ namespace TestDevTienda.Entities
         public int stock { get; set; }
         [Column("tienda_id")]
         public int tiendaId { get; set; }
-        public Tienda tienda { get; set; }
-        public ICollection<CarritoItem> carritoItems { get; set; }
+        public Tienda? tienda { get; set; }
+        public ICollection<CarritoItem>? carritoItems { get; set; }
     }
 }
 

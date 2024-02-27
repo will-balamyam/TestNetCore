@@ -18,19 +18,19 @@ namespace TestDevTienda.Business
 
         public async Task<IEnumerable<Articulo>> GetAll()
         {
-            return await _dbContext.Articulos.ToListAsync();
+            return await _dbContext.articulos.Include(u => u.tienda).ToListAsync();
         }
 
         public async Task<Articulo> GetById(int id)
         {
-            return await _dbContext.Articulos.FindAsync(id);
+            return await _dbContext.articulos.FindAsync(id);
         }
 
         public async Task<int> Create(Articulo articulo)
         {
-            _dbContext.Articulos.Add(articulo);
+            _dbContext.articulos.Add(articulo);
             await _dbContext.SaveChangesAsync();
-            return articulo.id;
+            return (int)articulo.id;
         }
 
         public async Task<int> Update(int id, Articulo articulo)
@@ -42,18 +42,18 @@ namespace TestDevTienda.Business
 
             _dbContext.Entry(articulo).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
-            return articulo.id;
+            return (int)articulo.id;
         }
 
         public async Task<int> Delete(int id)
         {
-            var entidad = await _dbContext.Articulos.FindAsync(id);
+            var entidad = await _dbContext.articulos.FindAsync(id);
             if (entidad == null)
             {
                 throw new ArgumentException("Entity not found");
             }
 
-            _dbContext.Articulos.Remove(entidad);
+            _dbContext.articulos.Remove(entidad);
             await _dbContext.SaveChangesAsync();
             return id;
         }

@@ -16,19 +16,24 @@ namespace TestDevTienda.Business
 			_dbContext = dbContext;
 		}
 
+        public async Task<Cliente?> Login(string email, string password)
+        {
+            return await _dbContext.clientes.FirstOrDefaultAsync(item => item.email == email && item.password == password);
+        }
+
 		public async Task<IEnumerable<Cliente>> GetAll()
 		{
-			return await _dbContext.Clientes.ToListAsync();
+			return await _dbContext.clientes.ToListAsync();
 		}
 
         public async Task<Cliente> GetById(int id)
         {
-            return await _dbContext.Clientes.FindAsync(id);
+            return await _dbContext.clientes.FindAsync(id);
         }
 
         public async Task<int> Create(Cliente cliente)
         {
-            _dbContext.Clientes.Add(cliente);
+            _dbContext.clientes.Add(cliente);
             await _dbContext.SaveChangesAsync();
             return cliente.id;
         }
@@ -48,13 +53,13 @@ namespace TestDevTienda.Business
 
         public async Task<int> Delete(int id)
         {
-            var entidad = await _dbContext.Clientes.FindAsync(id);
+            var entidad = await _dbContext.clientes.FindAsync(id);
             if (entidad == null)
             {
                 throw new ArgumentException("Entity not found");
             }
 
-            _dbContext.Clientes.Remove(entidad);
+            _dbContext.clientes.Remove(entidad);
             await _dbContext.SaveChangesAsync();
 
             return 1;

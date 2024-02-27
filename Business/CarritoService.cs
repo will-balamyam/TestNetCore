@@ -18,19 +18,22 @@ namespace TestDevTienda.Business
 
         public async Task<IEnumerable<Carrito>> GetAll()
         {
-            return await _dbContext.Carritos.ToListAsync();
+            return await _dbContext.carritos.ToListAsync();
         }
 
         public async Task<Carrito> GetById(int id)
         {
-            return await _dbContext.Carritos.FindAsync(id);
+            return await _dbContext.carritos.FirstOrDefaultAsync(item => item.id == id);
         }
 
         public async Task<int> Create(Carrito carrito)
         {
-            _dbContext.Carritos.Add(carrito);
+            _dbContext.carritos.Add(carrito);
             await _dbContext.SaveChangesAsync();
-            return carrito.id;
+            //Carrito carrito1 = await  _dbContext.carritos.FindAsync((int)carrito.id);
+            //carrito1.carritoItems = carrito.carritoItems;
+            await _dbContext.SaveChangesAsync();
+            return (int)carrito.id;
         }
 
         public async Task<int> Update(int id, Carrito carrito)
@@ -50,7 +53,7 @@ namespace TestDevTienda.Business
         {
             foreach (var entidad in carritoItems)
             {
-                _dbContext.CarritoItems.Add(entidad);
+                _dbContext.carrito_items.Add(entidad);
             }
 
             await _dbContext.SaveChangesAsync();
@@ -58,15 +61,24 @@ namespace TestDevTienda.Business
             return 1;
         }
 
-        public async Task<int> DeleteItems(int id)
+        public async Task<int> DeleteItems(int id, int carritoId)
         {
-            var entidad = await _dbContext.CarritoItems.FindAsync(id);
+            var entidad = await _dbContext.carrito_items.FindAsync(id);
             if (entidad == null)
             {
                 throw new ArgumentException("Entity not found");
             }
 
-            _dbContext.CarritoItems.Remove(entidad);
+            Carrito carrito = await _dbContext.carritos.FindAsync(carritoId);
+
+            if (carrito != null)
+            {
+                carrito.montoTotal = carrito.montoTotal - entidad.monto;
+                _dbContext.Entry(carrito).State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
+            }
+
+            _dbContext.carrito_items.Remove(entidad);
             await _dbContext.SaveChangesAsync();
 
             return 1;

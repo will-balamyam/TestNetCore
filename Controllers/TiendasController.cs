@@ -42,7 +42,7 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             ResponseEndpoint response = new ResponseEndpoint();
@@ -78,7 +78,7 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpPut("id")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Tienda tienda)
         {
             ResponseEndpoint response = new ResponseEndpoint();
@@ -96,7 +96,7 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             ResponseEndpoint response = new ResponseEndpoint();

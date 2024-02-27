@@ -12,7 +12,7 @@ using TestDevTienda.Models;
 namespace TestDevTienda.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ArticulosController : Controller
     {
 
@@ -40,7 +40,7 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             ResponseEndpoint response = new ResponseEndpoint();
@@ -76,7 +76,7 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpPut("id")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Articulo articulo)
         {
             ResponseEndpoint response = new ResponseEndpoint();
@@ -94,7 +94,7 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             ResponseEndpoint response = new ResponseEndpoint();

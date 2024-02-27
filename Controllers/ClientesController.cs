@@ -13,7 +13,7 @@ using TestDevTienda.Models;
 namespace TestDevTienda.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ClientesController : Controller
     {
 
@@ -22,6 +22,24 @@ namespace TestDevTienda.Controllers
         public ClientesController(IClienteService clienteService)
         {
             _clienteService = clienteService;
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginData login)
+        {
+            ResponseEndpoint response = new ResponseEndpoint();
+            response.code = StatusCodes.Status200OK;
+            try
+            {
+                response.data = await _clienteService.Login(login.email, login.password);
+            }
+            catch (Exception ex)
+            {
+                response.code = StatusCodes.Status400BadRequest;
+                response.message = ex.Message;
+            }
+
+            return StatusCode(StatusCodes.Status200OK, response);
         }
 
         [HttpGet]
@@ -42,7 +60,7 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             ResponseEndpoint response = new ResponseEndpoint();
@@ -78,7 +96,7 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpPut("id")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Cliente cliente)
         {
             ResponseEndpoint response = new ResponseEndpoint();
@@ -96,7 +114,7 @@ namespace TestDevTienda.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             ResponseEndpoint response = new ResponseEndpoint();
