@@ -11,6 +11,8 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { SharedModule } from './shared/shared.module';
 import { LayoutPageComponent } from './shared/Components/layout-page/layout-page.component';
+import {routesadmin} from "./shared/routes/routes-admin";
+import {LoginComponent} from "./login/login.component";
 
 @NgModule({
   declarations: [
@@ -26,13 +28,20 @@ import { LayoutPageComponent } from './shared/Components/layout-page/layout-page
     FormsModule,
     SharedModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: LoginComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-      { path: 'admin-articulos', loadChildren: () => import('./admin-articulos/admin-articulos.module').then(m => m.AdminArticulosModule) },
-      { path: 'admin-tiendas', component: LayoutPageComponent, loadChildren: () => import('./admin-tiendas/admin-tiendas.module').then(m => m.AdminTiendasModule) },
-      { path: 'catalogo-productos', loadChildren: () => import('./catalogo-productos/catalogo-productos.module').then(m => m.CatalogoProductosModule) },
+      {
+          path: 'admin',
+          component: LayoutPageComponent,
+          children: routesadmin
+      },
+      {
+          path: 'catalogo-productos',
+          //component: LayoutPageComponent,
+          loadChildren: () => import('./catalogo-productos/catalogo-productos.module').then(m => m.CatalogoProductosModule)
+      },
     ])
   ],
   providers: [],

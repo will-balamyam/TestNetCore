@@ -1,1 +1,35 @@
-<p>listado works!</p>
+<div class="row justify-content-end">
+    <div class="col-3 align-items-end">
+        <a [href]="'/admin/articulos/add'" class="btn btn-success">Agregar</a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Código</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Tienda</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of listadoData">
+            <th scope="row">{{ data['id'] }}</th>
+            <td>{{ data['codigo'] }}</td>
+            <td>{{ data['descripcion'] }}</td>
+            <td>{{ data['precio'] ? (data['precio'] | currency: 'USD') : '' }}</td>
+            <td>
+                <ng-container *ngIf="data['imagen']">
+                    <img [src]="data['imagen']" width="150" height="150">
+                </ng-container>
+            </td>
+            <td>{{ data['stock'] }}</td>
+            <td>{{ data['tienda'] ? data['tienda']['sucursal'] : '' }}</td>
+            <td><a [href]="'/admin/articulos/edit/' + data['id']" class="btn btn-info">Editar</a></td>
+        </tr>
+    </tbody>
+</table>

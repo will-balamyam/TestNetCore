@@ -9,14 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: ListadoComponent },
-  { path: 'add', component: FormularioComponent }
+  { path: 'add', component: FormularioComponent },
+  { path: 'edit/:id', component: FormularioComponent }
 ];
 
 @NgModule({
   declarations: [
     AdminTiendasComponent,
     FormularioComponent,
-    ListadoComponent    
+    ListadoComponent
   ],
   imports: [
     CommonModule,

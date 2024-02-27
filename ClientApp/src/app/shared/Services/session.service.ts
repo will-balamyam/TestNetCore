@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,11 +18,20 @@ export class SessionService {
     sessionStorage.setItem('dataUser', JSON.stringify(body));
   }
 
-  isLogged(): void {
+  isLogged(): boolean {
     return !!sessionStorage.getItem('dataUser');
   }
 
   getUserData(): any {
-    return JSON.parse(sessionStorage.getItem('dataUser'));
+    let dataStorage = sessionStorage.getItem('dataUser');
+    if (dataStorage) {
+      return JSON.parse(dataStorage);
+    }
+    return null;
+  }
+
+  getUserId(): any {
+    let dataUser = this.getUserData();
+    return dataUser['id'];
   }
 }

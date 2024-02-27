@@ -15,8 +15,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule
   ],
-  exports: [
-    LayoutPageComponent
-  ]
+    exports: [
+        LayoutPageComponent,
+        CarritoCompraComponent
+    ]
 })
 export class SharedModule { }

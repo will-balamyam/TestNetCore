@@ -6,9 +6,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TiendasService {
-  private baseUrl: string = '';
-  constructor(private http: HttpClient, @Inject('BASE_URL') _baseUrl: string) {
-    this.baseUrl = _baseUrl;
+  //private baseUrl: string = '';
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    //this.baseUrl = _baseUrl;
   }
 
   getAll(): Observable<any> {

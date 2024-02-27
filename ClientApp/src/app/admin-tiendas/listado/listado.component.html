@@ -1,16 +1,23 @@
+<div class="row justify-content-end">
+    <div class="col-3 align-items-end">
+        <a [href]="'/admin/tiendas/add'" class="btn btn-success">Agregar</a>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Sucursal</th>
-            <th scope="col">Direccion</th>            
+            <th scope="col">Direccion</th>
+            <th scope="col">Acciones</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of listadoData">
             <th scope="row">{{ data['id'] }}</th>
             <td>{{ data['sucursal'] }}</td>
-            <td>{{ data['direccion'] }}</td>            
+            <td>{{ data['direccion'] }}</td>
+            <td><a [href]="'/admin/tiendas/edit/' + data['id']" class="btn btn-info">Editar</a></td>
         </tr>        
     </tbody>
 </table>

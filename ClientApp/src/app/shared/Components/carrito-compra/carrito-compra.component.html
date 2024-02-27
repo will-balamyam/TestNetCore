@@ -1,1 +1,49 @@
-<p>carrito-compra works!</p>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Carrito de Compras</h2>
+  <div class="row">
+    <ng-container *ngIf="carrito">
+      <ng-container *ngIf="carrito['carritoItems'] && carrito['carritoItems'].length > 0">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="row" *ngFor="let item of carrito['carritoItems']">
+                  <div class="col-md-3">
+                    <img class="img-fluid" [src]="item['imagen']" alt="Producto 1">
+                  </div>
+                  <div class="col-md-9">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="card-text">Descripción del producto 1.</p>
+                    <p class="card-text">{{ item['monto'] }}</p>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary" type="button" [disabled]="!item['cantidad']" (click)="modificarCantidad(item)">-</button>
+                      </div>
+                      <input type="text" class="form-control" [value]="item['cantidad']" readonly>
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" (click)="modificarCantidad(item, true)">+</button>
+                      </div>
+                    </div>
+                    <a class="btn btn-danger" (click)="eliminarItem(item)">Eliminar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Agregar más productos según sea necesario -->
+          </div>
+        </div>
+      </ng-container>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Resumen del Pedido</h5>
+              <p class="card-text">Total: {{ carrito['montoTotal'] | currency: 'USD' }}</p>
+              <a href="#" class="btn btn-primary btn-block">Finalizar Compra</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

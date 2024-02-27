@@ -1,1 +1,24 @@
-<p>catalogo-productos works!</p>
+<div class="row">
+    <div class="col-8">
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Catálogo de Productos</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let producto of listadoProductos">
+                    <div class="card">
+                        <img class="card-img-top" [src]="producto['imagen']" alt="Producto 1">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ producto['codigo'] }}</h4>
+                            <p class="card-text">{{ producto['descripcion'] }}</p>
+                            <p class="card-text">{{ producto['precio'] | currency: 'USD' }}</p>
+                            <a class="btn btn-primary btn-block" (click)="agregarItemCarrito(producto)">Agregar al carrito</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <app-carrito-compra></app-carrito-compra>
+    </div>
+</div>
